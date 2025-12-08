@@ -86,11 +86,13 @@ body {
   width: 24px;
   aspect-ratio: 1;
   z-index: 20;
-  box-shadow: 0 0 10px  #f50000;
+  box-shadow: 0 0 10px  #ff0000;
 }
 
 .node.wall {
-  background: #555;
+  background: #464646;
+  box-shadow: 0 0 5px #fbff02;
+  border-radius: 10%;
 }
 
 /* .node.visited {

@@ -18,6 +18,7 @@ export default function Board() {
   const [grid, setGrid] = useState([]);
   const [mouseDown, setMouseDown] = useState(false);
 
+  
   const startPos = { row: 5, col: 5 };
   const endPos = { row: 10, col: 30 };
 
@@ -91,6 +92,7 @@ function generateMaze() {
 
   <button onClick={generateMaze}>Generate Maze</button>
   <button onClick={clearBoard}>Clear Board</button>
+  
 
   <div className="slider-box">
     <label>Speed</label>
