@@ -63,34 +63,9 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 ---
 
 ## 📂 Project Structure
-/public
-├── assets
-│ ├── source.svg
-└─└── target.svg
-/src
-├── components
-│ ├── Board.jsx
-│ ├── Node.jsx
-│ └── Panel.jsx
-├── algorithms
-│ ├── dijkstra.js
-│ ├── astar.js
-│ ├── bfs.js
-│ ├── dfs.js
-│ └── greedy.js
-├── utils
-│ ├── animate.js
-│ ├── grid.js
-└─└── priorityQueue.js
-├── logic
-│ ├── animate.js
-│ ├── utils.js
-│ └── clear.js
-├── index.css
-├── index.js
-├── App.css
-├── App.jsx
-└── styles.css
+![Structure](./assets/filestr.png)
+
+
 
 
 
