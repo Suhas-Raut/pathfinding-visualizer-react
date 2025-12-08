@@ -5,11 +5,12 @@ import { bfs } from "../algorithms/bfs";
 import { dfs } from "../algorithms/dfs";
 import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
+import { greedy } from "../algorithms/greedy";
 import { animate } from "../utils/animate";
 import { recursiveDivision } from "../algorithms/recursiveDivision";
 import { animateMaze } from "../utils/animate";
 
-const ROWS = 21;
+const ROWS = 20;
 const COLS = 58;
 
 
@@ -40,6 +41,7 @@ export default function Board() {
   if (name === "dfs") res = dfs(grid, start, end);
   if (name === "dijkstra") res = dijkstra(grid, start, end);
   if (name === "astar") res = astar(grid, start, end);
+  if (name === "greedy") res = greedy(grid, start, end);
 
   animate(res.visited, res.path, setGrid);
 }
@@ -88,6 +90,7 @@ function generateMaze() {
     <option value="dfs">DFS</option>
     <option value="dijkstra">Dijkstra</option>
     <option value="astar">A*</option>
+    <option value="greedy">Greedy</option>
   </select>
 
   <button onClick={generateMaze}>Generate Maze</button>

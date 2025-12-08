@@ -14,6 +14,8 @@ body {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   margin-bottom: 20px;
+  margin-left: 14px;
+  margin-right: 14px;
   box-shadow: 0 0 20px rgba(0, 30, 255, 0.501);
 }
 
@@ -26,7 +28,7 @@ body {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  text-shadow: 0 0 5px rgb(0, 132, 255);
+  text-shadow: 0 0 5px rgb(66, 147, 223);
   box-shadow: 0 0 10px rgb(0, 132, 255) inset;
   transition: 0.3s;
 }
@@ -50,11 +52,11 @@ body {
 
 .app {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .title {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -93,6 +95,8 @@ body {
   background: #464646;
   box-shadow: 0 0 5px #fbff02;
   border-radius: 10%;
+  aspect-ratio: 1;
+  z-index: 20;
 }
 
 /* .node.visited {
