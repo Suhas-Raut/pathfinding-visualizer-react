@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  margin: auto;
+  width: max-content;
+}
+
+.node {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #222;
+  background: #1f1f1f;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.node.start {
+  background: #2ecc71;
+}
+
+.node.end {
+  background: #e74c3c;
+}
+
+.node.wall {
+  background: #555;
+}
+
+.node.visited {
+  background: #3498db;
+  transform: scale(1.1);
+}
+
+.node.path {
+  background: yellow;
+  transform: scale(1.2);
+}

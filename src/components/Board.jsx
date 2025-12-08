@@ -1,135 +1,86 @@
-import React, { useEffect, useRef, useImperativeHandle, forwardRef, useState } from 'react';
-import gameState from '../logic/gameState';
-import { set as setNode, clearBoard as clearBoardUtil } from '../logic/utils'; // small helper imports
-import '../styles-to-import.css'; // just to silence import; actual styles are loaded from public
+import React, { useState, useEffect } from "react";
+import Node from "./Node";
+import { createGrid } from "../utils/grid";
+import { bfs } from "../algorithms/bfs";
+import { dfs } from "../algorithms/dfs";
+import { dijkstra } from "../algorithms/dijkstra";
+import { astar } from "../algorithms/astar";
+import { animate } from "../utils/animate";
 
-const Board = forwardRef((props, ref) => {
-  const boardEl = useRef(null);
-  const [cellWidth, setCellWidth] = useState(24);
+const ROWS = 20;
+const COLS = 40;
 
-  // create board based on current width and height
-  function renderBoard() {
-    const board = boardEl.current;
-    if (!board) return;
+export default function Board() {
+  const [grid, setGrid] = useState([]);
+  const [mouseDown, setMouseDown] = useState(false);
 
-    gameState.matrix = [];
-    gameState.col = parseInt(board.clientWidth / cellWidth);
-    gameState.row = parseInt(board.clientHeight / cellWidth);
-    if (window.innerWidth <= 662) gameState.row -= 1;
-    board.innerHTML = '';
-
-    for (let i = 0; i < gameState.row; i++) {
-      const rowElement = document.createElement('div');
-      rowElement.setAttribute('id', `row-${i}`);
-      rowElement.classList.add('row');
-      let colList = [];
-      for (let j = 0; j < gameState.col; j++) {
-        const colElement = document.createElement('div');
-        colElement.classList.add('col', 'unvisited');
-        colElement.setAttribute('id', `${i}-${j}`);
-        rowElement.appendChild(colElement);
-        colList.push(colElement);
-      }
-      board.appendChild(rowElement);
-      gameState.matrix.push(colList);
-    }
-    gameState.cells = document.querySelectorAll('.col');
-    initBoardInteraction();
-  }
+  const startPos = { row: 5, col: 5 };
+  const endPos = { row: 10, col: 30 };
 
   useEffect(() => {
-    function onResize() {
-      renderBoard();
-      // re-place source/target
-      gameState.source = setNode('source').value;
-      gameState.target = setNode('target').value;
-    }
-    renderBoard();
-    // initial source/target
-    gameState.source = setNode('source').value;
-    gameState.target = setNode('target').value;
-    window.addEventListener('resize', debounce(onResize, 250));
-    return () => window.removeEventListener('resize', debounce(onResize, 250));
-    // eslint-disable-next-line
-  }, [cellWidth]);
+    const g = createGrid(ROWS, COLS);
+    g[startPos.row][startPos.col].isStart = true;
+    g[endPos.row][endPos.col].isEnd = true;
+    setGrid(g);
+  }, []);
 
-  // provide imperative methods to parent controls
-  useImperativeHandle(ref, () => ({
-    renderBoard,
-    getBoardEl: () => boardEl.current,
-    setCellWidth: (w) => setCellWidth(w)
-  }));
+  function runAlgo(name) {
+    const start = grid[startPos.row][startPos.col];
+    const end = grid[endPos.row][endPos.col];
 
-  // board interactions (converted from original)
-  function initBoardInteraction() {
-    let draging = false;
-    let drawing = false;
-    let dragStart = null;
-    const cells = document.querySelectorAll('.col');
+    let res;
+    if (name === "bfs") res = bfs(grid, start, end);
+    if (name === "dfs") res = dfs(grid, start, end);
+    if (name === "dijkstra") res = dijkstra(grid, start, end);
+    if (name === "astar") res = astar(grid, start, end);
 
-    cells.forEach((cell) => {
-      const pointDown = (e) => {
-        if (e.target.classList.contains('source')) {
-          dragStart = 'source';
-          draging = true;
-        } else if (e.target.classList.contains('target')) {
-          dragStart = 'target';
-          draging = true;
-        } else {
-          drawing = true;
-        }
-      };
-
-      const pointUp = () => {
-        drawing = false;
-        draging = false;
-        dragStart = null;
-        if (gameState.source) gameState.matrix[gameState.source.x][gameState.source.y].classList.remove('wall');
-        if (gameState.target) gameState.matrix[gameState.target.x][gameState.target.y].classList.remove('wall');
-      };
-
-      const pointMove = (e) => {
-        const triggerElement = document.elementFromPoint(e.clientX, e.clientY);
-        if (triggerElement == null || !triggerElement.classList.contains('col')) return;
-        const cordinate = triggerElement.id.split('-');
-
-        if (draging && dragStart) {
-          cells.forEach(cell => cell.classList.remove(dragStart));
-          triggerElement.classList.add(dragStart);
-
-          if (dragStart === 'source') {
-            gameState.source = { x: Number(cordinate[0]), y: Number(cordinate[1]) };
-          } else {
-            gameState.target = { x: Number(cordinate[0]), y: Number(cordinate[1]) };
-          }
-        } else if (drawing) {
-          if (triggerElement.classList.contains('source') || triggerElement.classList.contains('target')) return;
-          const x = Number(cordinate[0]);
-          const y = Number(cordinate[1]);
-          gameState.matrix[x][y].setAttribute('class', 'col wall');
-        }
-      };
-
-      cell.addEventListener('pointerdown', pointDown);
-      cell.addEventListener('pointermove', pointMove);
-      cell.addEventListener('pointerup', pointUp);
-      cell.addEventListener('click', () => {
-        if (cell.classList.contains('source') || cell.classList.contains('target')) return;
-        cell.classList.remove('visited', 'path');
-        cell.classList.toggle('wall');
-      });
-    });
+    animate(res.visited, res.path, setGrid);
   }
 
+  const handleMouseDown = (node) => {
+    if (!node.isStart && !node.isEnd) {
+      node.isWall = !node.isWall;
+      setGrid([...grid]);
+    }
+    setMouseDown(true);
+  };
+
+  const handleMouseEnter = (node) => {
+    if (mouseDown && !node.isStart && !node.isEnd) {
+      node.isWall = !node.isWall;
+      setGrid([...grid]);
+    }
+  };
+
+  const handleMouseUp = () => setMouseDown(false);
+
   return (
-    <div id="board" ref={boardEl} style={{height:'calc(100vh - 120px)'}}></div>
+    <div>
+      <div className="controls">
+        <button onClick={() => runAlgo("bfs")}>BFS</button>
+        <button onClick={() => runAlgo("dfs")}>DFS</button>
+        <button onClick={() => runAlgo("dijkstra")}>Dijkstra</button>
+        <button onClick={() => runAlgo("astar")}>A*</button>
+      </div>
+
+      <div
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(${COLS}, 25px)`
+        }}
+      >
+        {grid.map((row, rIdx) =>
+          row.map((node, cIdx) => (
+            <Node
+              key={node.id}
+              node={node}
+              onMouseDown={handleMouseDown}
+              onMouseEnter={handleMouseEnter}
+              onMouseUp={handleMouseUp}
+            />
+          ))
+        )}
+      </div>
+    </div>
   );
-});
-
-// simple debounce
-function debounce(fn, wait) {
-  let t;
-  return (...a) => (clearTimeout(t), t = setTimeout(() => fn(...a), wait));
 }
-
-export default Board;
