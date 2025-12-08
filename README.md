@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# 🚀 Pathfinding Visualizer — Ultimate Algorithm Animation Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A stunning, neon-themed, real-time **Pathfinding & Maze-Generation Visualizer** built with **React + JavaScript + CSS**.  
+Watch algorithms come alive with ripple effects, glowing grids, smooth transitions, and interactive UI.
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Live Demo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+👉 Check Live Here:  
+``
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🌌 Overview
 
-### `npm run build`
+This project helps users visually understand how different pathfinding algorithms work internally.  
+With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremely smooth transitions — it turns algorithm learning into a cinematic experience.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔥 Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🟩 Pathfinding Algorithms
+- 🟦 **Dijkstra’s Algorithm**  
+- 🟥 **A\* (A-Star) Search**  
+- 🟪 **Greedy Best-First Search**  
+- 🟫 **Breadth-First Search (BFS)**  
+- 🟧 **Depth-First Search (DFS)**  
 
-### `npm run eject`
+### 🧱 Maze Generation
+- Recursive Division Maze  
+- Random Maze  
+- Vertical & Horizontal Maze 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🎨 UI / UX Features
+- Neon glowing theme  
+- Glassmorphism UI panels  
+- Speed slider (slow → ultra fast)  
+- Algorithm dropdown selector  
+- Start / End point draggable  
+- Clear Board / Clear Path  
+- Wave-Ripple animation for visited nodes  
+- Smooth connections for path tiles  
+- Fully responsive layout  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🖥️ Tech Stack
+- ## 🖥️ Tech Stack
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **React.js** – main UI framework for dynamic grid rendering and state management
+- **JavaScript (ES6+)** – core language for logic, algorithms, and interactivity
+- **HTML5** – markup for nodes, grid, and panel components
+- **CSS3** – styling, including neon/glass effects, animations, ripple effects, and responsiveness
+- **Create React App (CRA)** – project scaffolding and build tool
+ 
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📂 Project Structure
+/public
+├── assets
+│ ├── source.svg
+└─└── target.svg
+/src
+├── components
+│ ├── Board.jsx
+│ ├── Node.jsx
+│ └── Panel.jsx
+├── algorithms
+│ ├── dijkstra.js
+│ ├── astar.js
+│ ├── bfs.js
+│ ├── dfs.js
+│ └── greedy.js
+├── utils
+│ ├── animate.js
+│ ├── grid.js
+└─└── priorityQueue.js
+├── logic
+│ ├── animate.js
+│ ├── utils.js
+│ └── clear.js
+├── index.css
+├── index.js
+├── App.css
+├── App.jsx
+└── styles.css
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🎮 How to Run Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
+npm run dev   # or npm start
 
-### Making a Progressive Web App
+##🙏 Contribution
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- PRs are welcome!
