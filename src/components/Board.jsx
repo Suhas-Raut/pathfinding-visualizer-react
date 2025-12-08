@@ -12,7 +12,9 @@ import { animateMaze } from "../utils/animate";
 const ROWS = 21;
 const COLS = 58;
 
+
 export default function Board() {
+  const [speed, setSpeed] = useState(80);
   const [grid, setGrid] = useState([]);
   const [mouseDown, setMouseDown] = useState(false);
 
@@ -78,14 +80,26 @@ function generateMaze() {
 
   return (
     <div>
-      <div className="controls">
-        <button onClick={() => runAlgo("bfs")}>BFS</button>
-        <button onClick={() => runAlgo("dfs")}>DFS</button>
-        <button onClick={() => runAlgo("dijkstra")}>Dijkstra</button>
-        <button onClick={() => runAlgo("astar")}>A*</button>
-        <button onClick={clearBoard}>Clear Board</button>
-        <button onClick={generateMaze}>Generate Maze</button>
-      </div>
+      <div className="panel">
+  <select onChange={(e) => runAlgo(e.target.value)}>
+    <option value="">Select Algorithm</option>
+    <option value="bfs">BFS</option>
+    <option value="dfs">DFS</option>
+    <option value="dijkstra">Dijkstra</option>
+    <option value="astar">A*</option>
+  </select>
+
+  <button onClick={generateMaze}>Generate Maze</button>
+  <button onClick={clearBoard}>Clear Board</button>
+
+  <div className="slider-box">
+    <label>Speed</label>
+    <input type="range" min="10" max="100" onChange={(e) => setSpeed(e.target.value)} />
+  </div>
+</div>
+
+
+
 
       <div
         className="grid"

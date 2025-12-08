@@ -46,6 +46,6 @@ export function animateMaze(walls, setGrid) {
         }
         return copy;
       });
-    }, index * 20);
+    }, index * 10);
   });
 }
