@@ -7,8 +7,8 @@ import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 import { animate } from "../utils/animate";
 
-const ROWS = 20;
-const COLS = 40;
+const ROWS = 21;
+const COLS = 58;
 
 export default function Board() {
   const [grid, setGrid] = useState([]);

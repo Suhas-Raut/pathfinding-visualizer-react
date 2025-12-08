@@ -14,7 +14,7 @@ export function animate(visitedNodes, pathNodes, setGrid) {
     });
 
     i++;
-    setTimeout(animateVisited, 20);
+    setTimeout(animateVisited, 5);
   }
 
   let j = 0;
@@ -30,7 +30,7 @@ export function animate(visitedNodes, pathNodes, setGrid) {
     });
 
     j++;
-    setTimeout(animatePath, 30);
+    setTimeout(animatePath, 3);
   }
 
   animateVisited();
