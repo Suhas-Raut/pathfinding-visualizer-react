@@ -31,11 +31,19 @@ body {
 }
 
 .node.start {
-  background: #2ecc71;
+  background: url(../public/assets/source.svg);
+  width: 24px;
+  aspect-ratio: 1;
+  z-index: 20;
+  box-shadow: 0 0 10px  #00f50c;
 }
 
 .node.end {
-  background: #e74c3c;
+ background: url(../public/assets/target.svg);
+  width: 24px;
+  aspect-ratio: 1;
+  z-index: 20;
+  box-shadow: 0 0 10px  #f50000;
 }
 
 .node.wall {
