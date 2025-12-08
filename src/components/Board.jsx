@@ -6,6 +6,8 @@ import { dfs } from "../algorithms/dfs";
 import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 import { animate } from "../utils/animate";
+import { recursiveDivision } from "../algorithms/recursiveDivision";
+import { animateMaze } from "../utils/animate";
 
 const ROWS = 21;
 const COLS = 58;
@@ -25,17 +27,27 @@ export default function Board() {
   }, []);
 
   function runAlgo(name) {
-    const start = grid[startPos.row][startPos.col];
-    const end = grid[endPos.row][endPos.col];
+  clearBoard();   // 🌟 Clears before running a new algo
 
-    let res;
-    if (name === "bfs") res = bfs(grid, start, end);
-    if (name === "dfs") res = dfs(grid, start, end);
-    if (name === "dijkstra") res = dijkstra(grid, start, end);
-    if (name === "astar") res = astar(grid, start, end);
+  const start = grid[startPos.row][startPos.col];
+  const end = grid[endPos.row][endPos.col];
 
-    animate(res.visited, res.path, setGrid);
-  }
+  let res;
+  if (name === "bfs") res = bfs(grid, start, end);
+  if (name === "dfs") res = dfs(grid, start, end);
+  if (name === "dijkstra") res = dijkstra(grid, start, end);
+  if (name === "astar") res = astar(grid, start, end);
+
+  animate(res.visited, res.path, setGrid);
+}
+
+function generateMaze() {
+  clearBoard(); // clean board first
+
+  const walls = recursiveDivision(grid);
+  animateMaze(walls, setGrid);
+}
+
 
   const handleMouseDown = (node) => {
     if (!node.isStart && !node.isEnd) {
@@ -52,6 +64,16 @@ export default function Board() {
     }
   };
 
+  function clearBoard() {
+  const newGrid = createGrid(ROWS, COLS);
+
+  // reassign start/end nodes
+  newGrid[startPos.row][startPos.col].isStart = true;
+  newGrid[endPos.row][endPos.col].isEnd = true;
+
+  setGrid(newGrid);
+}
+
   const handleMouseUp = () => setMouseDown(false);
 
   return (
@@ -61,6 +83,8 @@ export default function Board() {
         <button onClick={() => runAlgo("dfs")}>DFS</button>
         <button onClick={() => runAlgo("dijkstra")}>Dijkstra</button>
         <button onClick={() => runAlgo("astar")}>A*</button>
+        <button onClick={clearBoard}>Clear Board</button>
+        <button onClick={generateMaze}>Generate Maze</button>
       </div>
 
       <div

@@ -50,14 +50,66 @@ body {
   background: #555;
 }
 
-.node.visited {
+/* .node.visited {
   background: #0199fe;
   box-shadow: 0 0 5px #1e80ff;
   transform: scale(0.98);
 }
+  
+
 
 .node.path {
   background: yellow;
   box-shadow: 0 0 10px #ccc12e;
   transform: scale(0.98);
+} */
+
+/* Wave Ripple for visited nodes */
+.node.visited {
+  animation: ripple 0.35s ease-out forwards;
+  background: #3498db;
 }
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.2);
+    background: #7e0062;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #ff35d796;
+
+  }
+  70% {
+    transform: scale(0.7);
+    background: #7f29b9;
+    box-shadow: 0 0 4px #d335ff96;
+  }
+  100% {
+    transform: scale(1);
+    border-radius: 4px;
+    background: #3498db;
+    box-shadow: 0 0 4px #0f5af196;
+  }
+}
+
+/* Glowing ripple for final path */
+.node.path {
+  animation: glowPath 0.45s ease-out forwards;
+  background: #f1c40f;
+}
+
+@keyframes glowPath {
+  0% {
+    transform: scale(0.4);
+    box-shadow: 0 0 2px #f10f0f;
+   
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow: 0 0 12px #ff9602;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 4px #f1c40f;
+  }
+}
+

@@ -1,8 +1,8 @@
 export function animate(visitedNodes, pathNodes, setGrid) {
-  let i = 0;
+  let i = 1;
 
   function animateVisited() {
-    if (i === visitedNodes.length) {
+    if (i === visitedNodes.length-1) {
       return animatePath();
     }
 
@@ -14,13 +14,13 @@ export function animate(visitedNodes, pathNodes, setGrid) {
     });
 
     i++;
-    setTimeout(animateVisited, 5);
+    setTimeout(animateVisited, 3);
   }
 
   let j = 0;
 
   function animatePath() {
-    if (j === pathNodes.length) return;
+    if (j === pathNodes.length-1) return;
 
     const node = pathNodes[j];
     setGrid(prev => {
@@ -34,4 +34,18 @@ export function animate(visitedNodes, pathNodes, setGrid) {
   }
 
   animateVisited();
+}
+
+export function animateMaze(walls, setGrid) {
+  walls.forEach(([r, c], index) => {
+    setTimeout(() => {
+      setGrid(prev => {
+        const copy = [...prev];
+        if (!copy[r][c].isStart && !copy[r][c].isEnd) {
+          copy[r][c].isWall = true;
+        }
+        return copy;
+      });
+    }, index * 20);
+  });
 }
