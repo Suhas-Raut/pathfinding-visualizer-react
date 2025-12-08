@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from 'react';
+import Board from './components/Board';
+import Controls from './components/Controls';
+import Tutorial from './components/Tutorial';
+import './app-overrides.css'; // small overrides to load fonts if needed
 
+// Styles are served from public/styles/* (keeps your original CSS intact)
 function App() {
+  const boardRef = useRef();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="template">
+      <Tutorial ref={boardRef} />
+      <header>
+        <nav>
+          <h1><a id="logo" href="/">pathfinding visualizer</a></h1>
+          <Controls boardRef={boardRef} />
+        </nav>
+
+        {/* Guide bar will be rendered inside Board component */}
       </header>
+
+      <main style={{height:'100%'}}>
+        <Board ref={boardRef} />
+      </main>
     </div>
   );
 }
