@@ -64,7 +64,7 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 
 ## 📂 Project Structure
 <div align="center">
-  <img src="/pathfinding-visualizer-react/public/assets/filestr.png" alt="Demo" width="600"/>
+  <img src="/pathfinding-visualizer-react/public/assets/filestr.png" alt="Structure" width="600"/>
 </div>
 
 
