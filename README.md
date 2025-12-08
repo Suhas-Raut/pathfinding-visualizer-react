@@ -63,7 +63,10 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 ---
 
 ## 📂 Project Structure
-![Structure](./assets/filestr.png)
+<div align="center">
+  <img src=".public/assets/filestr.png" alt="Demo" width="600"/>
+</div>
+
 
 
 
