@@ -25,6 +25,17 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 
 ## 🔥 Features
 
+### Snapshots -
+- User Interface
+- <img align="center" src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/blob/main/public/assets/UI1.png" alt="UI1" >
+
+- Animation
+- <img align="center" src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/blob/main/public/assets/UI2.png" alt="UI2" >
+
+- Algorithm Pathfinding Visualization
+- <img align="center" src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/blob/main/public/assets/UI3.png" alt="UI3" >
+
+
 ### 🟩 Pathfinding Algorithms
 - 🟦 **Dijkstra’s Algorithm**  
 - 🟥 **A\* (A-Star) Search**  
@@ -63,9 +74,7 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 ---
 
 ## 📂 Project Structure
-<div align="center">
-  <img src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/public/assets/filestr.png" alt="Structure" width="600"/>
-</div>
+<img align="center" src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/blob/main/public/assets/filestr.png" alt="filestructure" >
 
 
 
