@@ -9,10 +9,9 @@ Watch algorithms come alive with ripple effects, glowing grids, smooth transitio
 
 ---
 
-## ✨ Live Demo
+## ✨ Live Demo 
+ <a href="https://suhas-raut.github.io/pathfinding-visualizer-react/" target="_blank" rel="noreferrer"> <img src="https://github.com/Suhas-Raut/pathfinding-visualizer-react/blob/main/public/assets/image.svg" alt="Live" width="180" height="150"/> </a> 
 
-👉 Check Live Here:  
-``
 
 ---
 
