@@ -87,26 +87,46 @@ body {
 }
 
 .node.wall {
-  background: red;
-  box-shadow: 0 0 5px #ff0000;
-  border-radius: 10%;
+  background: rgb(255, 39, 39);
+  border-radius: 12%;
   z-index: 20;
+  animation: wallGrow 0.4s ease-out forwards;
+  box-shadow: 0 0 6px #ff0000;
 }
+@keyframes wallGrow {
+  0% {
+    transform: scale(0.2);
+    background: #eeff06;
+    box-shadow: 0 0 0px transparent;
+  }
+  60% {
+    transform: scale(1.15);
+    background: #ff992b;
+    box-shadow: 0 0 12px #ff0000;
+  }
+  100% {
+    transform: scale(1);
+    background: linear-gradient(90deg, #ff0000, #ff640a);
+    box-shadow: 0 0 6px #ff0000;
+  }
+}
+
 
 .node.visited {
   animation: ripple 0.5s ease-out forwards;
   background: #3498db;
+  box-radiuas: 10%;
 }
 
 @keyframes ripple {
   0% { transform: scale(0.2); background: #7e0062; }
   50% { transform: scale(0.7); background: #7f29b9; }
-  100% { transform: scale(1); background: #3498db; }
+  100% { transform: scale(1); background:linear-gradient(90deg, #005187, #3498db); }
 }
 
 .node.path {
   animation: glowPath 0.6s ease-out forwards;
-  background: #f1c40f;
+  background: linear-gradient(90deg, #eeff06, #f1c40f);
 }
 
 @keyframes glowPath {
