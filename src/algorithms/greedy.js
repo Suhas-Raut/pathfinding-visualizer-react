@@ -18,7 +18,8 @@ export function greedy(grid, start, end) {
     const node = pq.pop();
     visited.push(node);
 
-    if (node === end) break;
+    // ✅ Compare coordinates instead of object references
+    if (node.row === end.row && node.col === end.col) break;
 
     for (const nei of getNeighbours(grid, node)) {
       if (nei.isWall) continue;
@@ -36,7 +37,7 @@ export function greedy(grid, start, end) {
 
   // build path
   const path = [];
-  let cur = end;
+  let cur = grid[end.row][end.col];
   while (cur.prev) {
     path.push(cur);
     cur = cur.prev;

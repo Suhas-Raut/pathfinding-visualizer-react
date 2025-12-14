@@ -6,114 +6,169 @@ import { dfs } from "../algorithms/dfs";
 import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 import { greedy } from "../algorithms/greedy";
-import { animate } from "../utils/animate";
+import { animate, animateMaze } from "../utils/animate";
 import { recursiveDivision } from "../algorithms/recursiveDivision";
-import { animateMaze } from "../utils/animate";
 
 const ROWS = 20;
 const COLS = 58;
 
-
 export default function Board() {
-  const [speed, setSpeed] = useState(80);
   const [grid, setGrid] = useState([]);
   const [mouseDown, setMouseDown] = useState(false);
+  const [draggingNode, setDraggingNode] = useState(null); // "start" | "end" | null
+  const [startPos, setStartPos] = useState({ row: 5, col: 5 });
+  const [endPos, setEndPos] = useState({ row: 10, col: 30 });
+  const [selectedAlgo, setSelectedAlgo] = useState("bfs");
 
-  
-  const startPos = { row: 5, col: 5 };
-  const endPos = { row: 10, col: 30 };
-
+  // Initialize grid
   useEffect(() => {
-    const g = createGrid(ROWS, COLS);
-    g[startPos.row][startPos.col].isStart = true;
-    g[endPos.row][endPos.col].isEnd = true;
-    setGrid(g);
+    clearBoard();
   }, []);
 
-  function runAlgo(name) {
-  clearBoard();   // 🌟 Clears before running a new algo
-
-  const start = grid[startPos.row][startPos.col];
-  const end = grid[endPos.row][endPos.col];
-
-  let res;
-  if (name === "bfs") res = bfs(grid, start, end);
-  if (name === "dfs") res = dfs(grid, start, end);
-  if (name === "dijkstra") res = dijkstra(grid, start, end);
-  if (name === "astar") res = astar(grid, start, end);
-  if (name === "greedy") res = greedy(grid, start, end);
-
-  animate(res.visited, res.path, setGrid);
-}
-
-function generateMaze() {
-  clearBoard(); // clean board first
-
-  const walls = recursiveDivision(grid);
-  animateMaze(walls, setGrid);
-}
-
-
+  // --- Mouse handlers for walls and draggable nodes ---
   const handleMouseDown = (node) => {
-    if (!node.isStart && !node.isEnd) {
-      node.isWall = !node.isWall;
-      setGrid([...grid]);
+    if (node.isStart) setDraggingNode("start");
+    else if (node.isEnd) setDraggingNode("end");
+    else {
+      toggleWall(node);
     }
     setMouseDown(true);
   };
 
   const handleMouseEnter = (node) => {
-    if (mouseDown && !node.isStart && !node.isEnd) {
+    if (!mouseDown) return;
+
+    if (draggingNode === "start") moveNode("start", node);
+    else if (draggingNode === "end") moveNode("end", node);
+    else toggleWall(node);
+  };
+
+  const handleMouseUp = () => {
+    setMouseDown(false);
+    setDraggingNode(null);
+  };
+
+  const toggleWall = (node) => {
+    if (!node.isStart && !node.isEnd) {
       node.isWall = !node.isWall;
       setGrid([...grid]);
     }
   };
 
-  function clearBoard() {
-  const newGrid = createGrid(ROWS, COLS);
+  const moveNode = (type, node) => {
+    if (node.isWall) return; // prevent moving onto a wall
 
-  // reassign start/end nodes
-  newGrid[startPos.row][startPos.col].isStart = true;
-  newGrid[endPos.row][endPos.col].isEnd = true;
+    setGrid((prev) => {
+      const copy = prev.map(row => row.map(n => ({ ...n })));
+
+      if (type === "start") {
+        copy[startPos.row][startPos.col].isStart = false;
+        copy[node.row][node.col].isStart = true;
+        setStartPos({ row: node.row, col: node.col });
+      } else {
+        copy[endPos.row][endPos.col].isEnd = false;
+        copy[node.row][node.col].isEnd = true;
+        setEndPos({ row: node.row, col: node.col });
+      }
+
+      return copy;
+    });
+  };
+
+  // --- Clear Board ---
+  const clearBoard = () => {
+    const newGrid = createGrid(ROWS, COLS).map(row =>
+      row.map((n) => ({
+        ...n,
+        isStart: false,
+        isEnd: false,
+        isWall: false,
+        isVisited: false,
+        isPath: false,
+      }))
+    );
+
+    newGrid[startPos.row][startPos.col].isStart = true;
+    newGrid[endPos.row][endPos.col].isEnd = true;
+
+    setGrid(newGrid);
+  };
+
+  // --- Visualize Algorithm ---
+ const visualizeAlgorithm = () => {
+  // Reset only visited and path, keep walls
+  const newGrid = grid.map(row =>
+    row.map(n => ({ ...n, isVisited: false, isPath: false }))
+  );
+
+  // ✅ GET START & END FROM newGrid (NOT grid)
+  const startNode = newGrid[startPos.row][startPos.col];
+  const endNode = newGrid[endPos.row][endPos.col];
 
   setGrid(newGrid);
-}
 
-  const handleMouseUp = () => setMouseDown(false);
+  if (!startNode || !endNode) {
+    console.error("Start or End node undefined");
+    return;
+  }
+
+  let result;
+  switch (selectedAlgo) {
+    case "bfs":
+      result = bfs(newGrid, startNode, endNode);
+      break;
+    case "dfs":
+      result = dfs(newGrid, startNode, endNode);
+      break;
+    case "dijkstra":
+      result = dijkstra(newGrid, startNode, endNode);
+      break;
+    case "astar":
+      result = astar(newGrid, startNode, endNode);
+      break;
+    case "greedy":
+      result = greedy(newGrid, startNode, endNode);
+      break;
+    default:
+      result = bfs(newGrid, startNode, endNode);
+  }
+
+  // 🛡️ Defensive guard
+  if (!result || !result.visited) return;
+
+  animate(result.visited, result.path || [], setGrid);
+};
+
+
+  // --- Generate Maze ---
+  const generateMaze = () => {
+    clearBoard(); // Maze only on clear board
+    const walls = recursiveDivision(grid);
+    animateMaze(walls, setGrid);
+  };
 
   return (
     <div>
       <div className="panel">
-  <select onChange={(e) => runAlgo(e.target.value)}>
-    <option value="">Select Algorithm</option>
-    <option value="bfs">BFS</option>
-    <option value="dfs">DFS</option>
-    <option value="dijkstra">Dijkstra</option>
-    <option value="astar">A*</option>
-    <option value="greedy">Greedy</option>
-  </select>
+        <select onChange={(e) => setSelectedAlgo(e.target.value)} value={selectedAlgo}>
+          <option value="bfs">BFS</option>
+          <option value="dfs">DFS</option>
+          <option value="dijkstra">Dijkstra</option>
+          <option value="astar">A*</option>
+          <option value="greedy">Greedy</option>
+        </select>
 
-  <button onClick={generateMaze}>Generate Maze</button>
-  <button onClick={clearBoard}>Clear Board</button>
-  
-
-  <div className="slider-box">
-    <label>Speed</label>
-    <input type="range" min="10" max="100" onChange={(e) => setSpeed(e.target.value)} />
-  </div>
-</div>
-
-
-
+        <button onClick={visualizeAlgorithm}>Visualize</button>
+        <button onClick={generateMaze}>Generate Maze</button>
+        <button onClick={clearBoard}>Clear Board</button>
+      </div>
 
       <div
         className="grid"
-        style={{
-          gridTemplateColumns: `repeat(${COLS}, 25px)`
-        }}
+        style={{ gridTemplateColumns: `repeat(${COLS}, 25px)` }}
       >
-        {grid.map((row, rIdx) =>
-          row.map((node, cIdx) => (
+        {grid.map(row =>
+          row.map(node => (
             <Node
               key={node.id}
               node={node}
