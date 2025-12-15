@@ -60,17 +60,21 @@ With a modern neon-glass UI, glowing walls, wave-ripple animations, and extremel
 
 ---
 
-## 🖥️ Tech Stack
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="50"/> </a> 
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="50"/> </a> 
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40"/> </a> 
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="50"/> </a>
+<h2 align="left">
+  🛠️ Tech Stack&nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="HTML5" width="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="CSS3" width="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" width="32"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="React" width="40"/>
+ <img src='https://media1.giphy.com/media/du3J3cXyzhj75IOgvA/giphy.gif?cid=ecf05e47x2g034i9pzwtzzsd3xgg2w9nr94t4tflbbgo3008&rid=giphy.gif' height='32px'> 
+</h2>
 
 - **React.js** – main UI framework for dynamic grid rendering and state management
 - **JavaScript (ES6+)** – core language for logic, algorithms, and interactivity
 - **HTML5** – markup for nodes, grid, and panel components
 - **CSS3** – styling, including neon/glass effects, animations, ripple effects, and responsiveness
 - **Create React App (CRA)** – project scaffolding and build tool
+- **GitHub Pages** – Deployment
  
 
 ---
